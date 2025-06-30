@@ -289,34 +289,63 @@ head(mtcars)
 
 ```{r}
 # Your code here
+df <- mtcars
+
+df_filtered <- df[df$mpg > 20 & df$hp >100,]
+head(df_filtered)
+
+# Now let's get the average wt for all the cars that have a mpg greater than 20 and hp greater than 100
+mean_wt <- mean(df_filtered$wt)
+print(mean_wt)
+
 ```
 
 2. Create a new column in the `mtcars` dataset called `disp_per_cyl` that calculates the displacement per cylinder for each car. The displacement per cylinder can be calculated by dividing the `disp` column by the `cyl` column.
 
 ```{r}
 # Your code here
+mtcars$disp_per_cyl <- mtcars$disp / mtcars$cyl
 ```
 
 3. Create a scatter plot of `disp_per_cyl` vs `mpg` in the `mtcars` dataset. Add labels to the x-axis, y-axis, and title of the plot.
 
 ```{r}
 # Your code here
+# Load the mtcars dataset
+df <- mtcars
+
+# Create a scatter plot of disp_per_cyl vs mpg
+plot(df$disp_per_cyl, df$mpg, xlab = "Displacement per Cylinder", ylab = "Miles per Gallon", main = "Scatter Plot of Disp/Cyl vs HP")
+```
+
+
+
+
 ```
 
 4. Create a boxplot of `disp_per_cyl` by `cyl` in the `mtcars` dataset. Add labels to the x-axis, y-axis, and title of the plot.
 
 ```{r}
 # Your code here
+# Create a boxplot of disp_per_cyl by cyl
+boxplot(mtcars$disp_per_cyl ~ mtcars$cyl, xlab = "Number of Cylinders", ylab = "Displacement per Cylinder", main = "Boxplot of Displacement/Cylinder by Cylinders")
 ```
 
 5. Calculate the correlation between `disp_per_cyl` and `mpg` in the `mtcars` dataset.
 
 ```{r}
 # Your code here
+correlation <- cor(mtcars$disp_per_cyl, mtcars$mpg)
+print(correlation)
 ```
 
 6. Fit a linear regression model to predict `mpg` based on `disp_per_cyl` in the `mtcars` dataset. Get the summary of the model.
 
 ```{r}
 # Your code here
+# Fit a linear regression model
+model <- lm(mpg ~ disp_per_cyl, data = mtcars)
+
+# Get the summary of the model
+summary(model)
 ```

@@ -266,14 +266,14 @@ It is also possible to call other functions from within a function. Here's an ex
 
 ```{r}
 # Define a function
-add <- function(first_value, secodn_value) {
+add <- function(first_value, second_value) {
     result <- first_value + second_value
     return(result)
 }
 
 # Define another function
 square <- function(value) {
-    result <- add(value, value)
+    result <- value*value
     return(result)
 }
 
@@ -435,12 +435,21 @@ output: html_document
 1. Construct a 2 x 3 matrix which takes in values ranging from 1 to 6 in decending order row wise.
 ```{r}
 # Your code here
+matrix(c(6:1), nrow = 2, byrow = TRUE)
 ```
 
 2. Write a function that prints a pyramid using the `*` character. The function should take in a positive integer as an argument, and print a pyramid with that many levels. 
 
 ```{r}
 # Your code here
+print_pyramid <- function(n) {
+  for (i in 1:n) {
+    spaces <- strrep(" ", n - i)
+    stars <- strrep("*", 2 * i - 1)
+    cat(spaces, stars, "\n", sep = "")
+  }
+}
+print_pyramid(4)
 ```
 
 3. The following function is supposed to return the cumulative sum of numbers from 1 to n. However, there is a bug in the code. Find and fix the bug.
@@ -448,13 +457,12 @@ output: html_document
 ```{r}
 # Your code here
 cum_sum <- function(n) {
-    sum <- 0
-    for (i in 1:n) {
-        sum <- i
-    }
-    return(sum)
+  sum <- 0
+  for (i in 1:n) {
+    sum <- sum+i
+  }
+  return(sum)
 }
-
 print(cum_sum(5))
 ```
 
@@ -462,7 +470,18 @@ print(cum_sum(5))
 
 ```{r}
 # Your code here
-string <- "1234567890123456"
+string <- "12345678901234567890"
+
+valid_card <- function(card_number) {
+  total <- 0
+  for (i in 1:nchar(card_number)) {
+    digit <- substr(card_number, i, i)
+    total <- total + as.numeric(digit)
+  }
+  return(total %% 10 == 0)
+}
+
+print(valid_card(string))
 ```
 
 5. You are given a 3 x 3 dataframe with the rows representing cities and the columns representing dates. Identify if any of the cities have a temperature above 30 degrees on any of the dates and add a new column to the dataframe with the value `TRUE` if the city has a temperature above 30 degrees and `FALSE` if it does not.
@@ -475,4 +494,9 @@ df <- data.frame(
     date_2 = c(28, 29, 30),
     date_3 = c(30, 32, 33)
 )
+
+# Add column that is TRUE if any temperature > 30
+df$above_30 <- (df$date_1 > 30) | (df$date_2 > 30) | (df$date_3 > 30)
+
+print(df)
 ```
